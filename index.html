@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>NoteBook</title>
+    <style>
+      /* CSS styles go here */
+      body {
+        font-family: Arial, sans-serif;
+      }
+      textarea {
+        width: 100%;
+        height: 200px;
+        margin-bottom: 20px;
+      }
+      button {
+        padding: 10px;
+        background-color: #4CAF50;
+        color: white;
+        border: black  solid 2px;
+        border-radius: 4px;
+         cursor: pointer;        /* when cursor go on button show hand icon means clickable */
+
+      }
+      .name{
+        background-color: black;
+        text-align: center;
+        color: white;
+        border-radius: 6px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>NoteBook</h1>
+    <h3 class="name">ENTER YOUR TEXT:</h3>
+    <textarea id="text"></textarea>
+    <span class="name">Click the button to download your text:</span>
+    <br>
+    <button onclick="downloadText()">Download Text</button>
+
+    <script>
+      function downloadText() {
+        // Get the text from the textarea
+        var text = document.getElementById("text").value;
+
+        // Create a new Blob(binary large object) object with the text and set the MIME type to plain text
+        //  We can then use this object to create a URL that can be used to download the text file.
+
+        var blob = new Blob([text], { type: "text/plain" });
+
+        // a MIME type of "text/html" indicates that the data is an HTML document, while a MIME type of "image/png" indicates that the data is a PNG image file. There are many other MIME types for various data formats such as audio, video, text, and application files.
+
+        // MIME stands for Multipurpose Internet Mail Extensions. It is a standard that is used to indicate the type of data that is being sent over the internet
+
+        //type: "text/plain" is specifying that the MIME type of the Blob object should be "text/plain", which is used for plain text files. The new Blob([text], { type: "text/plain" }) line creates a new Blob object containing the text data with the specified MIME type.
+
+        // Create a new anchor element and set the href attribute to a URL created from the Blob object
+
+        var link = document.createElement("a");
+
+      // document: a JavaScript object that represents the current web page or HTML document.
+      // createElement(): a method available on the document object that creates a new HTML element with the specified tag name.
+      // "a": a string argument passed to the createElement() method, indicating that we want to create an anchor element (<a>).
+
+        link.href = window.URL.createObjectURL(blob);
+
+//window.URL.createObjectURL() method creates a DOMString containing a URL representing the object given in the parameter (in this case, the blob object). The URL is a unique temporary URL that represents the object and can be used to download the content.
+
+        // Set the download attribute to the filename you want the text file to have
+        link.download = "mytext.txt";
+
+        // Simulate a click on the anchor element to trigger the download
+        link.click();
+      }
+    </script>
+  </body>
+
+  <!-- steps 
+    1) get text using ,  var text = document.getElementById("text").value;
+    2) create the object of text using , var blob = new Blob([text], { type: "text/plain" });
+    3) create a anchor element for download using , var link = document.createElement("a");
+    4) create a link and set herf attribute , using link.href = window.URL.createObjectURL(blob);
+    5) set name of download file. using  link.download = "mytext.txt";
+    6) download ,  link.click();
+
+  -->
+</html>
